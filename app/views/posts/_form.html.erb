@@ -3,7 +3,6 @@
 
 <form  action="<%= destination %>" method="POST">
   <%= auth_token %>
-  <input type="hidden" name="post[sub_id]" value="<%=@post.sub_id %>">
   <% if @post.persisted?  %>
     <input type="hidden" name="_method" value="PATCH">
   <% end %>
@@ -24,6 +23,19 @@
 <%=@post.content %>
   </textarea>
   <br>
+  <ul>
+    <% Sub.all.each do |sub| %>
+    <li>
 
+      <label><%= sub.title %>
+        <input type="checkbox"
+               name="post[sub_ids][]"
+               value="<%= sub.id %>"
+               <%= "checked" if @post.sub_ids.include?(sub.id) %> >
+      </label>
+    </li>
+
+    <% end %>
+  </ul>
   <input type="submit" value="Submit">
 </form>

@@ -22,7 +22,7 @@ class PostsController < ApplicationController
   end
 
   def new
-    @post = Post.new(sub_id: params[:id])
+    @post = Post.new()
     render :new
   end
 
@@ -51,6 +51,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :url, :content, :sub_id)
+    params.require(:post).permit(:title, :url, :content, sub_ids: [])
   end
 end

@@ -14,7 +14,12 @@ class Sub < ApplicationRecord
   validates :title, :moderator_id, presence: true
   validates :title, uniqueness: { scope: :moderator_id}
 
+  has_many :post_subs,
+    dependent: :destroy
+
   has_many :posts,
+    through: :post_subs,
+    source: :post,
     dependent: :destroy
 
   belongs_to :moderator,
