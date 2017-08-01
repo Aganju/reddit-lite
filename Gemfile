@@ -41,6 +41,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'annotate'
   gem 'pry-rails'
+  gem 'faker'
 end
 
 group :test do
