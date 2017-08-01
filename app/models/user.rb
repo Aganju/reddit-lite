@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :integer          not null, primary key
+#  username        :string           not null
+#  password_digest :string           not null
+#  session_token   :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 class User < ApplicationRecord
   validates :username, :session_token, :password_digest, presence: true
   validates :password, length: {minimum: 6, allow_nil: true}
@@ -5,6 +17,12 @@ class User < ApplicationRecord
 
   after_initialize :ensure_session_token
   attr_reader :password
+
+  has_many :subs,
+    foreign_key: :moderator_id
+
+  has_many :posts,
+    foreign_key: :author_id
 
   def password=(password)
     @password = password
