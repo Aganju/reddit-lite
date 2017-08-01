@@ -16,7 +16,7 @@ end
 
 User.all.each do |user|
   3.times do
-      user.subs.create(title: Faker::Simpsons.quote)
+      user.subs.create(title: Faker::Simpsons.quote, description: Faker::Lorem.paragraphs(5) )
   end
 end
 
@@ -27,7 +27,9 @@ Sub.all.each do |subforum|
   3.times do
     subforum.posts.create(
       title: Faker::HitchhikersGuideToTheGalaxy.marvin_quote,
-      author_id: user_ids.sample
+      content: Faker::Lorem.paragraph(3),
+      author_id: user_ids.sample,
+      url: Faker::Internet.url
       )
   end
 end

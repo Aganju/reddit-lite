@@ -1,5 +1,6 @@
 class SubsController < ApplicationController
   before_action :require_login
+  before_action :sub_moderator?, only: [:edit, :update, :destroy]
 
   def index
     @subs = Sub.all
@@ -19,7 +20,7 @@ class SubsController < ApplicationController
   def update
     @subforum = Sub.find(params[:id])
 
-    if @subforum.update
+    if @subforum.update(sub_params)
       redirect_to sub_url(@subforum)
     else
       flash.now[:errors] = @subforum.errors.full_messages
@@ -34,7 +35,7 @@ class SubsController < ApplicationController
 
   def create
     @subforum = Sub.new(sub_params)
-
+    @subforum.moderator = current_user
     if @subforum.save
       redirect_to sub_url(@subforum)
     else
@@ -47,6 +48,11 @@ class SubsController < ApplicationController
     subforum = Sub.find(params[:id])
     subforum.destroy
     redirect_to subs_url
+  end
+
+  def sub_moderator?
+    subforum = Sub.find(params[:id])
+    redirect_to sub_url(subforum) unless subforum.moderator == current_user
   end
 
   private

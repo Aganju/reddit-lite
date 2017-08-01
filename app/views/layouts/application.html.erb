@@ -9,7 +9,7 @@
   </head>
   <body>
     <h1>Reddit-Lite</h1>
-
+    <%= render 'layouts/errors' %>
     <% if logged_in? %>
       <form action="<%= session_url %>" method="post">
         <%= auth_token %>

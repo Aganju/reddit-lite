@@ -1,0 +1,24 @@
+
+<% destination = @subforum.persisted? ? sub_url(@subforum) : subs_url %>
+
+<form  action="<%= destination %>" method="POST">
+  <%= auth_token %>
+
+  <% if @subforum.persisted?  %>
+    <input type="hidden" name="_method" value="PATCH">
+  <% end %>
+
+  <label>Title
+    <input type="text" name="sub[title]" value="<%= @subforum.title %>">
+  </label>
+  <br>
+  <br>
+  Description
+  <br>
+  <textarea name="sub[description]" rows="8" cols="80">
+<%=@subforum.description %>
+  </textarea>
+  <br>
+
+  <input type="submit" value="Submit">
+</form>

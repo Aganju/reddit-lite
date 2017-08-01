@@ -1,0 +1,29 @@
+
+<% destination = @post.persisted? ? post_url(@post) : posts_url %>
+
+<form  action="<%= destination %>" method="POST">
+  <%= auth_token %>
+  <input type="hidden" name="post[sub_id]" value="<%=@post.sub_id %>">
+  <% if @post.persisted?  %>
+    <input type="hidden" name="_method" value="PATCH">
+  <% end %>
+
+  <label>Title
+    <input type="text" name="post[title]" value="<%= @post.title %>">
+  </label>
+  <br>
+  <br>
+  <label>URL
+    <input type="text" name="post[url]" value="<%= @post.url %>">
+  </label>
+  <br>
+  <br>
+  Content
+  <br>
+  <textarea name="post[content]" rows="8" cols="80">
+<%=@post.content %>
+  </textarea>
+  <br>
+
+  <input type="submit" value="Submit">
+</form>

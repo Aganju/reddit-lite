@@ -1,0 +1,38 @@
+<br>
+
+<a href="<%= subs_url %>">All Forums</a>
+<br>
+<br>
+
+<% if @subforum.moderator == current_user %>
+  <a href="<%= edit_sub_url(@subforum) %>">Edit Forum</a>
+<% end %>
+
+<h2><%= @subforum.title %></h2>
+
+<h3>Description:</h3>
+
+<p> <%= @subforum.description %> </p>
+
+<a href="<%= new_post_url %>">Add Post</a>
+<br>
+<br>
+
+<ul>
+<% @subforum.posts.each do |post| %>
+  <li>
+  <a href="<%= post_url(post) %>">
+    <%= post.title %>
+  </a>
+
+  <% if @subforum.moderator == current_user %>
+    <form class="" action="<%= post_url(post) %>" method="post">
+      <%= auth_token %>
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" name="" value="Delete">
+    </form>
+  <% end %>
+</li>
+<br>
+<% end %>
+</ul>
