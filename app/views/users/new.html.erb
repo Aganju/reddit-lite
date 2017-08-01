@@ -1,0 +1,20 @@
+<h2>Sign Up</h2>
+
+<a href="<%= new_session_url %>">Already have an account? Sign in!</a>
+<br>
+<br>
+
+<form class="" action="<%= users_url %>" method="post">
+  <%= auth_token %>
+  <label for="">
+    Username
+    <input type="text" name="user[username]" >
+  </label>
+    <br>
+  <label for="">
+    Password
+    <input type="password" name="user[password]" >
+  </label>
+  <br>
+  <input type="submit" value="Sign Up!">
+</form>
